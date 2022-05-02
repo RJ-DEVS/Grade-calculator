@@ -1,0 +1,116 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Apr 14 17:00:46 2022
+
+@author: RJ
+"""
+
+from tkinter import *
+from PIL import ImageTk, Image
+
+class Final_grade_calculator:
+    
+    def __init__(self, window):
+        self.window = window
+        self.window.geometry("650x700")
+
+        self.window.title(" Python Final grade calculator")
+        self.window.attributes('-alpha',0.9)
+        self.window.config(bg='#191919')
+        self.window.iconbitmap(bitmap = r'monkeyicon.ico')
+        #self.window.iconbitmap(r"C:\Users\surface pro\OneDrive\Bureaublad\School\School Minor Datasciene 2021-2022\Programmeren in Python\Finalgradeapp\monkeyicon.ico")
+        
+        self.monkey_png = r'monkeypic.png'
+        #self.monkey_png = r"C:\Users\surface pro\OneDrive\Bureaublad\School\School Minor Datasciene 2021-2022\Programmeren in Python\Finalgradeapp\monkeypic.png"
+
+        #Project1 Grade
+        self.label_p1 = Label(window, text="Project 1:",fg='#cccccc',bg='#191919') 
+        self.label_p1.place(relx=0.1, rely=0.1, relwidth=0.21, relheight=0.05)
+        
+        self.label_entergrade= Label(window, text='Enter your Grade',fg='#cccccc',bg='#191919')
+        self.label_entergrade.place(relx=0.32, rely=0.03, relwidth=0.3, relheigh=0.05)
+        
+        self.entry_p1 = Entry(window, bg='#bdbdbd')
+        self.entry_p1.place(relx=0.32, rely=0.1, relwidth=0.3, relheight=0.05)
+        
+        #Project2 Grade
+        self.label_p2 = Label(window, text="Project 2:",fg='#cccccc',bg='#191919')
+        self.label_p2.place(relx=0.1, rely=0.17, relwidth = 0.21, relheight=0.05)
+        
+        self.entry_p2 = Entry(window, bg='#bdbdbd')
+        self.entry_p2.place(relx=0.32, rely=0.17, relwidth = 0.3, relheight=0.05)
+        
+        #Project3 Grade
+        self.label_p3 = Label(window, text = "Project 3:",fg='#cccccc',bg='#191919')
+        self.label_p3.place(relx=0.1, rely=0.24, relwidth = 0.21, relheight=0.05)
+        
+        self.entry_p3 = Entry(window, bg='#bdbdbd')
+        self.entry_p3.place(relx=0.32, rely=0.24, relwidth =0.3, relheight=0.05)
+        
+        #Project4 Grade
+        self.label_p4 = Label(window, text = "Project 4:",fg='#cccccc',bg='#191919')
+        self.label_p4.place(relx=0.1, rely =0.31, relwidth = 0.21, relheight=0.05)
+        
+        self.entry_p4 = Entry(window, bg='#bdbdbd')
+        self.entry_p4.place(relx=0.32, rely=0.31, relwidth = 0.3, relheight=0.05)
+        
+        #Midterm Grade
+        self.label_midterm = Label(window, text = "Midterm:",fg='#cccccc',bg='#191919')
+        self.label_midterm.place(relx=0.1, rely=0.38, relwidth=0.21, relheight=0.05)
+        
+        self.entry_midterm = Entry(window, bg='#bdbdbd')
+        self.entry_midterm.place(relx=0.32, rely=0.38, relwidth=0.3, relheight=0.05)
+        
+        #Final exam Grade
+        self.label_final_exam = Label(window, text='Final exam:',fg='#cccccc',bg='#191919')
+        self.label_final_exam.place(relx=0.1, rely=0.45, relwidth=0.21, relheight=0.05)
+        
+        self.entry_final_exam = Entry(window, bg='#bdbdbd')
+        self.entry_final_exam.place(relx=0.32, rely=0.45, relwidth=0.3, relheight=0.05)
+        
+        #Calculate button
+        self.button_calculate = Button(window, text = "Calculate final grade",bg='#363636',fg='#cccccc', command = self.calculate_final_grade)
+        self.button_calculate.place(relx=0.31, rely=0.52, relwidth=0.35, relheight=0.05)
+        
+        #Clear all button
+        self.button_clear = Button(window, text= "Clear" ,bg='#363636',fg='#cccccc', command = self.clear_text)
+        self.button_clear.place(relx=0.66, rely=0.52, relwidth=0.3, relheight=0.05)
+        
+        #Label final Grade
+        self.label_final_grade = Label(window,bg='#191919')
+        self.label_final_grade.place(relx=0.32, rely=0.6, relwidth=0.3, relheight=0.05)
+        
+        #monkey image
+        self.monkey_image = ImageTk.PhotoImage(Image.open(self.monkey_png).resize((200,200)))
+        self.label_monkey_image = Label(window, image=self.monkey_image, bg ='#191919')
+        self.label_monkey_image.place(relx=0.55, rely=0.7, relwidth =0.4, relheight=0.25)
+        
+    def calculate_final_grade(self):
+        p1 = self.entry_p1.get()
+        p2 = self.entry_p2.get()
+        p3 = self.entry_p3.get()
+        p4 = self.entry_p4.get()
+        midterm = self.entry_midterm.get()
+        final_exam = self.entry_final_exam.get()
+            
+        #calculator (do not change!)
+        project = (float(p1)+float(p2)+float(p3)+float(p4))/4
+        finalgrade = (project *0.4)+ (float(midterm) *0.2 ) + (float(final_exam)*0.4)
+        if finalgrade >=5.5:
+            self.label_final_grade.config(text = f"Final Grade:   {finalgrade:.2f}", bg="#38761d")
+        elif finalgrade <5.5:   
+             self.label_final_grade.config(text = f"Final Grade:   {finalgrade:.2f}", bg="#d63232")
+   
+    def clear_text(self):
+        self.entry_p1.delete(0, 'end')
+        self.entry_p2.delete('0','end')
+        self.entry_p3.delete('0','end')
+        self.entry_p4.delete('0','end')
+        self.entry_midterm.delete('0','end')
+        self.entry_final_exam.delete('0','end')
+        self.label_final_grade.config(text = "",bg='#191919')
+            
+if __name__ == '__main__':           
+    window = Tk()
+    app_final_grade = Final_grade_calculator(window)
+    window.mainloop()
